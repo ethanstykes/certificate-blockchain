@@ -2,7 +2,7 @@
 
 Instructions:
 
-run blockchain.py on all ports
+run apps.py on all ports
 
 run app.js (site at: http://localhost:8080)
 
