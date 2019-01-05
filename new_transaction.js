@@ -4,7 +4,7 @@ var options = { method: 'POST',
 url: 'http://0.0.0.0:5003/transactions/new',
 body:
     { sender: '6d143bf02f6e8c228f6f00a230088772',
-    recipient: '234c23a23e32a123',
+    recipient: '234c23a23e32a124',
     certificate:
         { Name: 'John Harvard',
             'Issuing Authority': 'Harvard University',
