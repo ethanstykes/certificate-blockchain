@@ -6,7 +6,7 @@ body:
     { sender: '6d143bf02f6e8c228f6f00a230088772',
     recipient: '234c23a23e32a123',
     certificate:
-        { Name: 'A.S.K.Satvik',
+        { Name: 'John Harvard',
             'Issuing Authority': 'Harvard University',
         Course: 'Introduction to Computer Science',
         Representative: 'David J. Malan',
