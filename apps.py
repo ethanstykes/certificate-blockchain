@@ -2,6 +2,7 @@ from blockchain import Blockchain
 import json
 from uuid import uuid4
 import requests
+import ast
 
 from flask import Flask, jsonify, request
         
@@ -32,6 +33,7 @@ def mine():
 @app.route('/transactions/new', methods=['POST'])
 def new_transaction():
     values = request.get_json()
+    values = ast.literal_eval(values)
     print("\nvalues:",values,"\n")
     # Check that the required fields are in the POST'ed data
     required = ['sender','recipient', 'certificate']
