@@ -41,7 +41,7 @@ def new_transaction():
     # Create a new Transaction
     index = blockchain.new_transaction(values['sender'], values['recipient'], values['certificate'])
 
-    response = {'message': 'Transaction will be added to Block {index}'}
+    response = {'message': f'Transaction will be added to Block {index}'}
     return jsonify(response), 201
    
 @app.route('/chain', methods=['GET'])
@@ -68,7 +68,14 @@ def verify_transactions():
     
     neighbours = list((blockchain.nodes).keys())
     response2=[]
+    verified_certificates = []
     
+    for block in blockchain.chain:
+        for certificate in block['transactions']:
+            verified_certificates.append(certificate)
+
+    print ("\ntransactions from the chain:",verified_certificates,"\n")
+
     for node in neighbours:
         url=f'http://{node}/transactions/current'
             
@@ -91,7 +98,7 @@ def verify_transactions():
                                  'message': 'Transaction error!'
                                  })
                 print('\nCERTIFICATE:',certificate)
-                if blockchain.verify_certificate(ip=node,sender=sender) and certificate not in blockchain.current_transactions:
+                if blockchain.verify_certificate(ip=node,sender=sender) and certificate not in blockchain.current_transactions and certificate not in verified_certificates:
                     blockchain.current_transactions.append(certificate)
                     response2[-1]={
                         'url' : url,
@@ -110,6 +117,7 @@ def verify_transactions():
 
 @app.route('/nodes/resolve', methods=['GET'])
 def consensus():
+    blockchain.current_transactions = []
     replaced = blockchain.resolve_conflicts()
 
     if replaced:
