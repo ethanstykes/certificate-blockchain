@@ -10,7 +10,7 @@ Adding certificates from Postman won't work (Everything else will)
 
 After adding a certificate go to http://0.0.0.0:5003/transactions/current (or send a GET request using Postman) to see the certificates
 
-Verification process: change the ports in verify.js to demonstrate the process (the log will be displayed in the respective terminal tabs). Or follow the ../verify -> ../mine order in Postman.
+Verification process: change the ports in verify.js to demonstrate the process (the log will be displayed in the respective terminal tabs). Or follow the ..resolve/ -> ../verify -> ../mine order in Postman. (resolve conflicts before verifying from the leader's side. Not to be confused with the resolve conflict request from a node for getting the new chain from the leader after verification - it should be done too).
 
 Remember: The leader status changes like 5001->5002->5003->5000->5001->... Do the verification from the leader's port. 
 Find creative ways to demontrate our consensus algoritm (eg: add multiple blocks in single turn, add blocks when it's not a node's turn) and the verification algorithm (add a certificate with the address of a different institution)
