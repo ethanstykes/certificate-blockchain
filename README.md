@@ -1,5 +1,20 @@
 # certificate-blockchain
 
+Instructions:
+
+run blockchain.py on all ports
+
+run app.js (site at: http://localhost:8080)
+
+Adding certificates from Postman won't work (Everything else will)
+
+After adding a certificate go to http://0.0.0.0:5003/transactions/current (or send a GET request using Postman) to see the certificates
+
+Verification process: change the ports in verify.js to demonstrate the process (the log will be displayed in the respective terminal tabs). Or follow the ../verify -> ../mine order in Postman.
+
+Remember: The leader status changes like 5001->5002->5003->5000->5001->... Do the verification from the leader's port. 
+Find creative ways to demontrate our consensus algoritm (eg: add multiple blocks in single turn, add blocks when it's not a node's turn) and the verification algorithm (add a certificate with the address of a different institution)
+
 Tasks:
 
 Test API's and functions (https://app.getpostman.com/join-team?invite_code=85949b4751d9d7e0b0312ee6f25c05cd&ws=de5c5fe0-3b5a-4644-8cbf-c4b5a27d124c)
@@ -21,8 +36,6 @@ U2:  "cd68875a5a7bf6943edf53d062b4d6ce8cea8e16a8167736bf077b6dd0f02bc2"
 U3:  "72f397dc4e5c197e33a94397dcd95f1ff62912675b2d361ee3408e7783eb218c"
 
 U4:  "d4f1dade285f4b60eb30088dbbf803d551caf3e39288b514a656e546b0def2f5"
-
-Hash (SHA256) them and take [:32] to find the sender_id's (replace the addresses in self.nodes with them. Also use them in the 'sender' fields of the certificates for testing)
 
 
 
