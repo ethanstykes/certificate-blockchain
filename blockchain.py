@@ -34,13 +34,20 @@ class Blockchain:
         
         # Traverse the chain backwards till a new valid block is found (ignore all other blocks)
         while new_length > our_length:
+            print("new length:"+str(new_length),", our length:"+str(our_length))
             if chain[new_length-1]['previous_hash']==self.hash(self.chain[-1]):
                 new_valid_block_found = True
                 self.chain.append(chain[new_length-1])
+                print("a new valid block has been found!")
                 break
             new_length -= 1
         
+        if (our_length == 1): #for the initial synchronization of the network
+            self.chain = chain
+            new_valid_block_found = True
+        
         if not new_valid_block_found:
+            print("coudn't find a new valid block")
             return False
     
         # Verifies the validity of rest of the chain
@@ -56,7 +63,8 @@ class Blockchain:
 
             last_block = block
             current_index += 1
-
+        
+        print("the chain with the valid block is also valid")
         return True
 
     def resolve_conflicts(self):
@@ -74,38 +82,43 @@ class Blockchain:
         # Reconfiguring the order of nodes
         for i in range(self.leader,nodes_len):
             neighbours_new.append(neighbours[i])
-        for i in range(slef.leader):
+        for i in range(self.leader):
             neighbours_new.append(neighbours[i])
         neighbours =neighbours_new
         
         replaced = False
+        previous_checked = False
         
         i = self.leader
         for node in neighbours:
             
-            # We're only looking for chains longer than ours
-            max_length = len(self.chain)
-            
-            response = requests.get('http://{node}/chain')
-
-            if response.status_code == 200:
-                length = response.json()['length']
-                chain = response.json()['chain']
-
-                # Check if the length is longer and the chain is valid
-                if length > max_length and self.valid_chain(chain):
-                    max_length = length
-                    replaced = True
-                    
-                    # Update leader status
-                    self.leader = i
-        
             # Counting leader position
             if(i < nodes_len):
                 i+=1
             else:
                 i=0
+            
+            # We're only looking for chains longer than ours
+            max_length = len(self.chain)
+            
+            if (previous_checked == False):
+                previous_checked = True
+                print("\n",'Requesting:http://'+node+'/chain',"\n")
+                response = requests.get('http://'+node+'/chain')
 
+                if response.status_code == 200:
+                    length = response.json()['length']
+                    chain = response.json()['chain']
+
+                    # Check if the length is longer and the chain is valid
+                    if length > max_length and self.valid_chain(chain):
+                        max_length = length
+                        replaced = True
+                        previous_checked = False
+                        # Update leader status
+                        self.leader = i
+                        print("chain has been updated. New leader:"+list(self.nodes.keys())[self.leader])
+                            
         # Replace our chain if we discovered a new, valid chain longer than ours
         if replaced:
             return True
