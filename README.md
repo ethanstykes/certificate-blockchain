@@ -9,7 +9,7 @@ run apps.py on all ports (5000,5001,5002 and 5003) eg: $python apps.py -p 5001 (
 
 run app.js (site at http://localhost:8080) - Webapp for adding new certificates from institutions' side.
 
-PS: Adding certificates from Postman won't work (Everything else will) - #Issue
+PS: Adding certificates using Postman won't work - #Issue (JSON (application/json) is not accepted)
 
 After adding a certificate go to http://0.0.0.0:5003/transactions/current (or send a GET request using Postman) to see the certificates.
 
