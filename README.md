@@ -1,31 +1,33 @@
 # certificate-blockchain
 
+Postman workspace: https://app.getpostman.com/join-team?invite_code=85949b4751d9d7e0b0312ee6f25c05cd&ws=de5c5fe0-3b5a-4644-8cbf-c4b5a27d124c
+
+
 Instructions:
 
-run apps.py on all ports
+run apps.py on all ports (5000,5001,5002 and 5003) eg: $python apps.py -p 5001 (default is 5000)
 
-run app.js (site at: http://localhost:8080)
+run app.js (site at http://localhost:8080) - For adding new certificate from the institutions's side
 
-Adding certificates from Postman won't work (Everything else will)
+PS: Adding certificates from Postman won't work (Everything else will) - #Issue
 
-After adding a certificate go to http://0.0.0.0:5003/transactions/current (or send a GET request using Postman) to see the certificates
+After adding a certificate go to http://0.0.0.0:5003/transactions/current (or send a GET request using Postman) to see the certificates.
 
-Verification process: change the ports in verify.js to demonstrate the process (the log will be displayed in the respective terminal tabs). Or follow the ..resolve/ -> ../verify -> ../mine order in Postman. (resolve conflicts before verifying from the leader's side. Not to be confused with the resolve conflict request from a node for getting the new chain from the leader after verification - it should be done too).
+Verification process: run verify.js (the log will be displayed in the respective terminal tabs). Or follow the ..resolve/ -> ../verify -> ../mine order in Postman. (resolve conflicts before verifying from the leader's side).
 
-Remember: The leader status changes like 5001->5002->5003->5000->5001->... Do the verification from the leader's port. 
-Find creative ways to demontrate our consensus algoritm (eg: add multiple blocks in single turn, add blocks when it's not a node's turn) and the verification algorithm (add a certificate with the address of a different institution)
+The leader status changes like 5001->5002->5003->5000->5001->... Do the verification from the leader's port. 
+
 
 Tasks:
 
-Test API's and functions (https://app.getpostman.com/join-team?invite_code=85949b4751d9d7e0b0312ee6f25c05cd&ws=de5c5fe0-3b5a-4644-8cbf-c4b5a27d124c)
+Test API and functions (https://app.getpostman.com/join-team?invite_code=85949b4751d9d7e0b0312ee6f25c05cd&ws=de5c5fe0-3b5a-4644-8cbf-c4b5a27d124c)
 
-Look for #..(TASK) comments in the code 
+Look for #..(TASK) comments in the code
 
 
 Points to remember: 
 
-Make sure that our chain is upto date before sending certificates for verification (to find the right leader), and more importantly, while adding a new block (to add the block to the largest existing chain).
-Add these functionalities to back-end (verify chain and resolve conflicts by calling the corresponding API's before submitting the certificates/adding a new block)
+Make sure that our chain is upto date before adding a new block (to add the block to the longest valid chain).
 
 University keys:
 
