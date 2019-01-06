@@ -7,7 +7,7 @@ Instructions:
 
 run apps.py on all ports (5000,5001,5002 and 5003) eg: $python apps.py -p 5001 (default is 5000)
 
-run app.js (site at http://localhost:8080) - Webapp for adding new certificate from the institutions' side.
+run app.js (site at http://localhost:8080) - Webapp for adding new certificates from institutions' side.
 
 PS: Adding certificates from Postman won't work (Everything else will) - #Issue
 
